@@ -1,3 +1,9 @@
+#FORCA
+
+import unidecode
+import random
+import sys
+
 def forca3(variavel):
   if len(variavel) == 0:
     print(""" _____
@@ -61,9 +67,7 @@ def continuar_parar():
             sys.exit()
 def jogo():
 
-  import unidecode
-  import random
-  import sys
+  
 
   palavras = ['coisa;','casa;',' tempo;','homem; ','senhor;','  senhora;', 'moço; ', 'moça.', 'grande;', 'melhor;', 'pior;', 'certo;  ', '  último; ', 'próprio.', 'estar;', 'haver;', 'fazer;', '  ficar; ', ' poder;', 'mais;', ' muito;', 'quando; ', 'mesmo;', 'depois;', 'ainda.', 'dois; ', ' primeiro;']
   t = 0 
