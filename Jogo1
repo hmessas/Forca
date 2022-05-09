@@ -1,0 +1,133 @@
+def forca3(variavel):
+  if len(variavel) == 0:
+    print(""" _____
+|     |
+|     
+|    
+|    
+|""")
+  elif len(variavel) == 1:
+    print(""" _____
+|     |
+|     O
+|    
+|    
+|""")
+  elif len(variavel) == 2:
+    print(""" _____
+|     |
+|     O
+|     |
+|    
+|""")
+  elif len(variavel) == 3:
+    print(""" _____
+|     |
+|     O
+|    —|
+|    
+|""")
+  elif len(variavel) == 4:
+    print(""" _____
+|     |
+|     O
+|    —|—
+|    
+|""")
+  elif len(variavel) == 5:
+    print(""" _____
+|     |
+|     O
+|    —|—
+|    / 
+|""")
+  else:
+    print(""" _____
+|     |
+|     O
+|    —|—
+|    / \\
+|""")
+    
+def continuar_parar():
+    continuar=1
+    while continuar:
+        continuar = int(input("0. Sair \n"+
+                              "1. Jogar novamente\n"))
+        if continuar:
+            jogo()
+        else:
+            print("Saindo...")
+            sys.exit()
+def jogo():
+
+  import unidecode
+  import random
+  import sys
+
+  palavras = ['coisa;','casa;',' tempo;','homem; ','senhor;','  senhora;', 'moço; ', 'moça.', 'grande;', 'melhor;', 'pior;', 'certo;  ', '  último; ', 'próprio.', 'estar;', 'haver;', 'fazer;', '  ficar; ', ' poder;', 'mais;', ' muito;', 'quando; ', 'mesmo;', 'depois;', 'ainda.', 'dois; ', ' primeiro;']
+  t = 0 
+  lista_tratada = []
+  for c in range(0,len(palavras)):
+    lista_tratada.append(((unidecode.unidecode(palavras[t]).strip()).replace(";","").lower()).replace(".",''))
+    t = t+1
+  palavra = lista_tratada[random.randint(0, len(palavras))]
+  alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+  numeros = ['1','2','3','4','5','6','7','8','9','0','!','#','$','%','^','&','*','(',')','']
+  #print(palavra)
+  letras_erradas = ''
+  print(f"A palavra tem {len(palavra)} letras")
+  while len(letras_erradas) < 6:
+      n = str(input("Diga uma palavra ou letra. Atenção, não digite números ou caracteres especiais: "))
+      n = (((unidecode.unidecode(n)).replace(" ","")).lower()).strip()
+      letras_acertadas = ''
+      while n in numeros:
+        n = input("Por favor, não digite números ou caracteres especiais!")
+      while n in letras_acertadas+letras_erradas:
+        n = input("Você já digitou essa letra. Digite outra: ")
+      if len(n) < 2:
+        if n in palavra:
+          palavra_incognita = palavra
+          letras_acertadas = letras_acertadas + n
+          print("Essa letra está na palavra!")
+          for r in letras_acertadas:
+            alfabeto = alfabeto.replace(r,'')
+            #print(alfabeto)
+          for l in alfabeto:
+            palavra_incognita = palavra_incognita.replace(l,'_')
+          forca3(letras_erradas)
+          print(" ", palavra_incognita)
+          print(f"Essa letra está na palavra! Letras já usadas: {letras_erradas}")
+            #b = "_"*len(palavra)
+          print(f'Você tem mais {6-len(letras_erradas)} chance(s)')
+        else:
+          palavra_incognita = palavra
+          letras_erradas = letras_erradas + n
+          print(f"Essa letra não está na palavra! Letras já usadas: {letras_erradas}")
+          print(f'Você tem mais {6-len(letras_erradas)} chance(s)')
+          #print(palavra_incognita)
+          for r in letras_acertadas:
+            alfabeto = alfabeto.replace(r,'')
+            #print(alfabeto)
+          for l in alfabeto:
+            palavra_incognita = palavra_incognita.replace(l,'_')
+          forca3(letras_erradas)
+          #print(len(letras_erradas))
+          print(" ", palavra_incognita)
+      else:
+        if n == palavra:
+          print("O jogo acabou! Você venceu!!!")
+          continuar_parar()
+        else:
+          print(f"O jogo acabou! A palavra correta era {palavra}! Você perdeu!!!")
+          continuar_parar()
+  n = str(input("Esta é a sua última chance! Diga uma palavra: "))
+  n = (((unidecode.unidecode(n)).replace(" ","")).lower()).strip()
+  if n == palavra:
+    print("Parabéns, você acertou!")
+    continuar_parar()
+  else:
+    print(f"Você errou! A palavra correta era {palavra}!")
+    continuar_parar()
+
+jogo()
